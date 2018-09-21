@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+        "log"
 )
 
 func main() {
@@ -15,7 +16,8 @@ func main() {
 	fs := http.FileServer(http.Dir("public/"))
 	http.Handle("/", fs)
 
-	http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServeTLS(":443", "cert/adamsomers_com.crt", "cert/adamsomers.com.key", nil)
+	log.Fatal(err)
 	fmt.Println("bye")
 }
 
